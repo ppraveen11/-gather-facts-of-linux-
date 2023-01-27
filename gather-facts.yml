@@ -1,0 +1,27 @@
+- hosts: mn
+  gather_facts: false
+  tasks:
+    - name: Gather disk usage statistics
+      command: "df -h"
+      register: disk_usage
+
+    - name: Gather memory usage statistics
+      command: "free -m"
+      register: memory_usage
+
+    - name: Gather network statistics
+      command: "netstat -s"
+      register: network_stats
+
+    - name: Print disk usage statistics
+      debug:
+        var: disk_usage.stdout_lines
+
+    - name: Print memory usage statistics
+      debug:
+        var: memory_usage.stdout_lines
+
+    - name: Print network statistics
+      debug:
+        var: network_stats.stdout_lines
+
